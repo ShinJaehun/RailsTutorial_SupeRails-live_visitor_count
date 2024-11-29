@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LiveVisitorCount</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <%= request.session.id %>
+    <% list = Kredis.unique_list('visitors_online') %>
+    <hr>
+    <%= list.elements %>
+    <hr>
+    
+    <%= turbo_stream_from :visitors, channel: VisitorsChannel %>
+    Current website visitors: 
+    <span id='visitors-count'></span>
+
+    <%= yield %>
+  </body>
+</html>

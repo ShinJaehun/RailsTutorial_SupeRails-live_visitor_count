@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+People inside this room: 
+<span id="room-<%= @room.id %>-visitors-count"></span>
+<%= turbo_stream_from @room, channel: RoomChannel, data: { room_id: @room.id } %>
+
+<%= render @room %>
+
+<div>
+  <%= link_to "Edit this room", edit_room_path(@room) %> |
+  <%= link_to "Back to rooms", rooms_path %>
+
+  <%= button_to "Destroy this room", @room, method: :delete %>
+</div>
